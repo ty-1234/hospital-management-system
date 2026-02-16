@@ -1,6 +1,7 @@
 # Hospital Management System
 
 A full-stack ASP.NET Core hospital management system built with `.NET 9`, `MVC`, `Entity Framework Core`, `SQLite`, and `ASP.NET Identity`.
+<img width="1915" height="923" alt="image" src="https://github.com/user-attachments/assets/75d79eae-52dd-4b16-90ea-af0253afc29c" />
 
 ## Features
 
