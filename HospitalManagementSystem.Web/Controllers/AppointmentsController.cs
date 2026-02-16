@@ -39,6 +39,7 @@ public class AppointmentsController(ApplicationDbContext dbContext) : Controller
     public async Task<IActionResult> Create(Appointment appointment)
     {
         ValidateAppointmentTimes(appointment);
+        await ValidateNoDoctorOverlapAsync(appointment);
         if (!ModelState.IsValid)
         {
             await PopulateLookupsAsync(appointment.PatientId, appointment.DoctorId);
@@ -71,6 +72,7 @@ public class AppointmentsController(ApplicationDbContext dbContext) : Controller
         }
 
         ValidateAppointmentTimes(appointment);
+        await ValidateNoDoctorOverlapAsync(appointment, appointment.Id);
         if (!ModelState.IsValid)
         {
             await PopulateLookupsAsync(appointment.PatientId, appointment.DoctorId);
@@ -111,6 +113,26 @@ public class AppointmentsController(ApplicationDbContext dbContext) : Controller
         if (appointment.EndTime <= appointment.StartTime)
         {
             ModelState.AddModelError(nameof(Appointment.EndTime), "End time must be after start time.");
+        }
+    }
+
+    private async Task ValidateNoDoctorOverlapAsync(Appointment appointment, int? excludeAppointmentId = null)
+    {
+        if (appointment.DoctorId <= 0 || appointment.EndTime <= appointment.StartTime)
+        {
+            return;
+        }
+
+        var hasOverlap = await dbContext.Appointments.AnyAsync(a =>
+            a.DoctorId == appointment.DoctorId &&
+            a.Id != excludeAppointmentId &&
+            appointment.StartTime < a.EndTime &&
+            appointment.EndTime > a.StartTime);
+
+        if (hasOverlap)
+        {
+            ModelState.AddModelError(nameof(Appointment.StartTime),
+                "The selected doctor already has an overlapping appointment.");
         }
     }
 

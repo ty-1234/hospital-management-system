@@ -30,6 +30,7 @@ public class BillsController(ApplicationDbContext dbContext) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Bill bill)
     {
+        await ValidateAppointmentOwnershipAsync(bill);
         if (!ModelState.IsValid)
         {
             await PopulateLookupsAsync(bill.PatientId, bill.AppointmentId);
@@ -61,6 +62,7 @@ public class BillsController(ApplicationDbContext dbContext) : Controller
             return BadRequest();
         }
 
+        await ValidateAppointmentOwnershipAsync(bill);
         if (!ModelState.IsValid)
         {
             await PopulateLookupsAsync(bill.PatientId, bill.AppointmentId);
@@ -118,5 +120,31 @@ public class BillsController(ApplicationDbContext dbContext) : Controller
             "Id",
             "Label",
             selectedAppointmentId);
+    }
+
+    private async Task ValidateAppointmentOwnershipAsync(Bill bill)
+    {
+        if (!bill.AppointmentId.HasValue)
+        {
+            return;
+        }
+
+        var appointment = await dbContext.Appointments
+            .AsNoTracking()
+            .Where(a => a.Id == bill.AppointmentId.Value)
+            .Select(a => new { a.PatientId })
+            .FirstOrDefaultAsync();
+
+        if (appointment is null)
+        {
+            ModelState.AddModelError(nameof(Bill.AppointmentId), "Selected appointment does not exist.");
+            return;
+        }
+
+        if (appointment.PatientId != bill.PatientId)
+        {
+            ModelState.AddModelError(nameof(Bill.AppointmentId),
+                "Selected appointment must belong to the selected patient.");
+        }
     }
 }
