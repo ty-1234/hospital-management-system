@@ -1,0 +1,90 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="hero-panel mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <h1 class="display-6 fw-semibold mb-2">Hospital Command Center</h1>
+            <p class="lead mb-0">Track doctors, patients, appointments, and billing in one friendly dashboard.</p>
+        </div>
+        <div class="col-lg-5">
+            <img class="hero-image" src="https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Doctors in a hospital corridor" />
+        </div>
+    </div>
+</section>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="card metric-card metric-blue border-0"><div class="card-body"><div class="metric-label">Departments</div><div class="metric-value">@Model.DepartmentCount</div></div></div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card metric-card metric-green border-0"><div class="card-body"><div class="metric-label">Doctors</div><div class="metric-value">@Model.DoctorCount</div></div></div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card metric-card metric-orange border-0"><div class="card-body"><div class="metric-label">Patients</div><div class="metric-value">@Model.PatientCount</div></div></div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card metric-card metric-pink border-0"><div class="card-body"><div class="metric-label">Pending Bills</div><div class="metric-value">@Model.PendingBillsCount</div></div></div>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <article class="care-card">
+            <img src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Doctor checking patient chart" />
+            <div class="p-3"><h5 class="mb-1">Patient Care</h5><p class="mb-0 text-muted">Organize records and appointments with less admin friction.</p></div>
+        </article>
+    </div>
+    <div class="col-md-4">
+        <article class="care-card">
+            <img src="https://images.pexels.com/photos/6129687/pexels-photo-6129687.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Medical team discussion" />
+            <div class="p-3"><h5 class="mb-1">Clinical Teamwork</h5><p class="mb-0 text-muted">Keep departments and specialists in sync.</p></div>
+        </article>
+    </div>
+    <div class="col-md-4">
+        <article class="care-card">
+            <img src="https://images.pexels.com/photos/7089019/pexels-photo-7089019.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Nurse using tablet in hospital ward" />
+            <div class="p-3"><h5 class="mb-1">Operational Clarity</h5><p class="mb-0 text-muted">Monitor billing and schedules from one place.</p></div>
+        </article>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Upcoming Appointments</h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped mb-0">
+            <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Start</th>
+                <th>Status</th>
+                <th>Reason</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (!Model.UpcomingAppointments.Any())
+            {
+                <tr><td colspan="5" class="text-muted">No upcoming appointments.</td></tr>
+            }
+            else
+            {
+                @foreach (var appointment in Model.UpcomingAppointments)
+                {
+                    <tr>
+                        <td>@appointment.Patient?.FullName</td>
+                        <td>@appointment.Doctor?.FullName</td>
+                        <td>@appointment.StartTime.ToLocalTime().ToString("g")</td>
+                        <td>@appointment.Status</td>
+                        <td>@appointment.Reason</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

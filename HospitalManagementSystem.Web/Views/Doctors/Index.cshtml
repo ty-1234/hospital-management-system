@@ -1,0 +1,38 @@
+@model IEnumerable<Doctor>
+@{
+    ViewData["Title"] = "Doctors";
+}
+
+<section class="module-hero hero-doctors">
+    <div>
+        <h2 class="mb-1">Doctors</h2>
+        <p>Track specialists, coverage, and department assignments.</p>
+    </div>
+    <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Doctor standing with stethoscope" />
+</section>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 text-muted">Medical Staff</h5>
+    <a class="btn btn-primary" asp-action="Create">Add Doctor</a>
+</div>
+
+<div class="module-table-wrap">
+    <table class="table table-striped table-bordered mb-0">
+        <thead><tr><th>Name</th><th>Specialization</th><th>Department</th><th>Contact</th><th style="width:180px;">Actions</th></tr></thead>
+        <tbody>
+        @foreach (var doctor in Model)
+        {
+            <tr>
+                <td>@doctor.FullName</td>
+                <td>@doctor.Specialization</td>
+                <td>@doctor.Department?.Name</td>
+                <td>@doctor.Email<br/>@doctor.PhoneNumber</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@doctor.Id">Edit</a>
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@doctor.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

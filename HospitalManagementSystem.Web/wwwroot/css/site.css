@@ -1,0 +1,181 @@
+:root {
+  --bg-soft: #f2f7ff;
+  --ink: #16324f;
+  --accent: #1f7ae0;
+}
+
+html {
+  font-size: 15px;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html { font-size: 16px; }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  font-family: "Trebuchet MS", "Segoe UI", "Verdana", sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, #dff4ff 0%, transparent 35%),
+    radial-gradient(circle at 95% 5%, #ffe5ef 0%, transparent 30%),
+    linear-gradient(180deg, #f9fcff 0%, var(--bg-soft) 100%);
+}
+
+.app-nav {
+  background: linear-gradient(90deg, #ffffff, #ecf5ff);
+}
+
+.app-shell {
+  flex: 1 0 auto;
+  width: 100%;
+  animation: fadein 0.35s ease;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.navbar-brand {
+  color: #0e5db3 !important;
+}
+
+.nav-link:hover {
+  color: #0e5db3 !important;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #1f7ae0, #24a0ed);
+  border: none;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.hero-panel {
+  background: linear-gradient(120deg, #0f4c81, #218ad9);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 14px 30px rgba(15, 76, 129, 0.28);
+}
+
+.hero-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+}
+
+.metric-card {
+  color: #fff;
+  border-radius: 0.85rem;
+  box-shadow: 0 8px 20px rgba(11, 27, 54, 0.18);
+}
+
+.metric-blue { background: linear-gradient(135deg, #2f80ed, #56ccf2); }
+.metric-green { background: linear-gradient(135deg, #11998e, #38ef7d); }
+.metric-orange { background: linear-gradient(135deg, #ff7e5f, #feb47b); }
+.metric-pink { background: linear-gradient(135deg, #f857a6, #ff5858); }
+
+.metric-label {
+  opacity: 0.92;
+  font-size: 0.9rem;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.care-card {
+  background: #fff;
+  border-radius: 0.9rem;
+  box-shadow: 0 10px 22px rgba(38, 67, 97, 0.12);
+  overflow: hidden;
+  height: 100%;
+}
+
+.care-card img {
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+  display: block;
+}
+
+.card, .table {
+  border-radius: 0.8rem;
+}
+
+.table thead th {
+  background-color: #eef6ff;
+  border-bottom: 1px solid #d6e8ff;
+}
+
+.form-control:focus, .form-select:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.18rem rgba(31, 122, 224, 0.2);
+  border-color: #6aa8ef;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.module-hero {
+  color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 10px 24px rgba(20, 48, 75, 0.2);
+}
+
+.module-hero img {
+  width: 190px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.module-hero p {
+  margin: 0;
+  opacity: 0.95;
+}
+
+.hero-departments { background: linear-gradient(120deg, #2c70cb, #42a5f5); }
+.hero-doctors { background: linear-gradient(120deg, #00897b, #26a69a); }
+.hero-patients { background: linear-gradient(120deg, #ef6c00, #ff9800); }
+.hero-appointments { background: linear-gradient(120deg, #7b1fa2, #ab47bc); }
+.hero-bills { background: linear-gradient(120deg, #c2185b, #ec407a); }
+
+.module-table-wrap {
+  background: #fff;
+  border-radius: 0.9rem;
+  box-shadow: 0 10px 20px rgba(35, 67, 97, 0.12);
+  overflow: hidden;
+  border: 1px solid #e6eef9;
+}
+
+@media (max-width: 767px) {
+  .module-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .module-hero img {
+    width: 100%;
+    height: 165px;
+  }
+}

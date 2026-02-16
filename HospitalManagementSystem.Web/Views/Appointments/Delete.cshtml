@@ -1,0 +1,14 @@
+@model Appointment
+@{
+    ViewData["Title"] = "Delete Appointment";
+}
+
+<div class="card shadow-sm border-danger"><div class="card-body">
+    <h4>Delete Appointment</h4>
+    <p>Delete appointment for <strong>@Model.Patient?.FullName</strong> with <strong>@Model.Doctor?.FullName</strong> on @Model.StartTime.ToLocalTime().ToString("f")?</p>
+    <form asp-action="Delete" method="post">
+        <input asp-for="Id" type="hidden" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div></div>
